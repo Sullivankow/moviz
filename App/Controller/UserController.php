@@ -32,7 +32,7 @@ class UserController extends Controller
             ]);
         }
     }
-  
+
     protected function register()
     {
         try {
@@ -40,7 +40,7 @@ class UserController extends Controller
             $user = new User();
 
             if (isset($_POST['saveUser'])) {
-                
+
                 $user->hydrate($_POST);
                 $user->setRole(ROLE_USER);
 
@@ -48,7 +48,7 @@ class UserController extends Controller
 
                 if (empty($errors)) {
                     $userRepository = new UserRepository();
-                    
+
                     $userRepository->persist($user);
                     header('Location: index.php?controller=auth&action=login');
                 }
@@ -59,13 +59,10 @@ class UserController extends Controller
                 'pageTitle' => 'Inscription',
                 'errors' => $errors
             ]);
-
         } catch (\Exception $e) {
             $this->render('errors/default', [
                 'error' => $e->getMessage()
             ]);
-        } 
-
+        }
     }
-
 }
